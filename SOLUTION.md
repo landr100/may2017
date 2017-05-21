@@ -43,12 +43,18 @@ How to test (version 1):
 ## NOTES
 
 - start the service in one tab: go run RobinGowin2017.go
-- verify health check works properly: open http://localhost:8080/dictionary and confirm the expected status message is displayed
+- verify health check works properly: open http://localhost:8080/healthcheck and confirm the expected status message is displayed
 - store the dictionary:
-    curl -i -X POST -T messaging-interview/words.txt -H "Content-Type: text/plain"  http://localhost:8080/dictionary
+```
+curl -i -X POST -T messaging-interview/words.txt -H "Content-Type: text/plain"  http://localhost:8080/dictionary
+```
 - send the provided words file:
-    curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split
+```
+curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split
+```
 - confirm the output is as expected:
-    curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split | tr -d '\n'  >out.txt
-    diff out.txt messaging-interview/concatenated.txt # should return no differences
+```
+curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split | tr -d '\n'  >out.txt
+diff out.txt messaging-interview/concatenated.txt # should return no differences```
+```
 

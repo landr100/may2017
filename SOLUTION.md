@@ -55,6 +55,7 @@ curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plai
 - confirm the output is as expected:
 ```
 curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split | tr -d '\n'  >out.txt
-diff out.txt messaging-interview/concatenated.txt # should return no differences```
+
+diff out.txt messaging-interview/concatenated.txt # should return no differences
 ```
 

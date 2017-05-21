@@ -41,30 +41,6 @@ calling this endpoint updates a map which is used as the global dictionary.
 
 For simplicity, the input files "words.txt" and "concatenated.txt" that were provided in the tar file are copied to the top level directory.
 
-### Testing using command-line (curl)
-
-- start the service in one tab:
-```
-go run RobinGowin2017.go
-```
-- verify health check works properly: open http://localhost:8080/healthcheck and confirm the expected status message is displayed
-- store the dictionary:
-```
-cd messaging-interview
-curl -i -X POST -H "Content-Type: text/plain" http://localhost:8080/dictionary/filename/words.txt
-```
-- send the provided words file:
-```
-cd messaging-interview
-curl -X POST -H "Content-Type: text/plain" http://localhost:8080/split/filename/concatenated.txt
-```
-- confirm the output is as expected:
-```
-curl -X POST -H "Content-Type: text/plain" http://localhost:8080/split/filename/concatenated.txt | grep -v 'opening concat' | tr -d '\n' >out.txt
-
-diff out.txt concatenated.txt # should return no differences
-```
-
 ### Testing using Go
 
 - start the service in one tab:
@@ -76,4 +52,26 @@ go run RobinGowin2017.go
 - run the test program:
 ```
 go run RobinGowinTest2017.go
+```
+
+### Testing using command-line (curl)
+
+- start the service in one tab:
+```
+go run RobinGowin2017.go
+```
+- verify health check works properly: open http://localhost:8080/healthcheck and confirm the expected status message is displayed
+- store the dictionary:
+```
+curl -i -X POST -H "Content-Type: text/plain" http://localhost:8080/dictionary/filename/words.txt
+```
+- send the provided words file:
+```
+curl -X POST -H "Content-Type: text/plain" http://localhost:8080/split/filename/concatenated.txt
+```
+- confirm the output is as expected:
+```
+curl -X POST -H "Content-Type: text/plain" http://localhost:8080/split/filename/concatenated.txt | grep -v 'opening concat' | tr -d '\n' >out.txt
+
+diff out.txt concatenated.txt # should return no differences
 ```

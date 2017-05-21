@@ -33,7 +33,7 @@ The endpoint "/split" allows the user to pass in the concatenated list of words;
 This function calls a search function which iterates over the provided input, and returns when the first match is discovered.
 There is a limit provided so that the recursion does not loop forever; the idea of "when to stop trying" is based on iteration.
 If the input provided does not have any combination of words in the dictionary, a simple message like "search for ... did not return results" is displayed.
-Most likely the algorithm runs in O(N**2) time so that could be used as a bound for termination if the input has no matches.
+Most likely the algorithm runs in O(N\*\*2) time so that could be used as a bound for termination if the input has no matches.
 Any endpoint besides the ones listed above will result in a 404 message (page not found).
 
 ## Verification
@@ -44,9 +44,11 @@ How to test (version 1):
 
 - start the service in one tab: go run RobinGowin2017.go
 - verify health check works properly: open http://localhost:8080/dictionary and confirm the expected status message is displayed
-- store the dictionary: curl -i -X POST -T messaging-interview/words.txt -H "Content-Type: text/plain"  http://localhost:8080/dictionary
-- send the provided words file: curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split
+- store the dictionary:
+    curl -i -X POST -T messaging-interview/words.txt -H "Content-Type: text/plain"  http://localhost:8080/dictionary
+- send the provided words file:
+    curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split
 - confirm the output is as expected:
-curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split | tr -d '\n'  >out.txt
-diff out.txt messaging-interview/concatenated.txt # should return no differences
+    curl -X POST -T messaging-interview/concatenated.txt -H "Content-Type: text/plain"  http://localhost:8080/split | tr -d '\n'  >out.txt
+    diff out.txt messaging-interview/concatenated.txt # should return no differences
 
